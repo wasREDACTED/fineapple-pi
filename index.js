@@ -19,4 +19,5 @@ var firebase = require("firebase"); // I need this for firebase, right?
   firebase.initializeApp(config);
 </script>
 
+var database = firebase.database();
 
