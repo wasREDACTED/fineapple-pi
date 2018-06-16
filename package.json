@@ -1,0 +1,27 @@
+{
+  "name": "fineapple-pi",
+  "version": "0.0.1",
+  "description": "A wood-fired Pi cooker.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wasREDACTED/fineapple-pi.git"
+  },
+  "keywords": [
+    "Pi",
+    "Firebase",
+    "Raspberry",
+    "Pi",
+    "Node",
+    "beginner"
+  ],
+  "author": "Greyson Yant <_@greysonyant.com> (http://greysonyant.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wasREDACTED/fineapple-pi/issues"
+  },
+  "homepage": "https://github.com/wasREDACTED/fineapple-pi#readme"
+}
