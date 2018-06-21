@@ -26,7 +26,7 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var lockStatus = admin.database().ref().child('lockStatus');
+var lockStatus = admin.database().ref().child('lockStatus').on('value');
 
 const http = require('http');
 
