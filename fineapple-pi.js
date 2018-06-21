@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
   res.end('Hello World\n');
 });
 
-var ref = firebase.app().database().ref();
+var ref = admin.app().database().ref();
 ref.once('value')
  .then(function (snap) {
  console.log('snap.val()', snap.val());
