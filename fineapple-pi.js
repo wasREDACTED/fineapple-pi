@@ -16,7 +16,15 @@ logsRef.child(messageRef.key).set(message);
 logsRef.orderByKey().limitToLast(1).on('child_added', function(snap) {
     console.log('added', snap.val());
 });
-logsRef.on()
+logsRef.on('child_removed', function(snap) {
+  console.log('removed', snap.val());
+});
+ref.child('logs').on('child_changed', function(snap) {
+  console.log('changed', snap.val());
+});
+ref.child('logs').on('value', function(snap) {
+  console.log('value', snap.val());
+});
 
 const http = require('http');
 
