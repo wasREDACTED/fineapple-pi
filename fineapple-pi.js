@@ -7,7 +7,6 @@ admin.initializeApp({
 });
 var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
 var ref = admin.database().ref().child('nodeclient');
-var lock = admin.database().ref().child('lockStatus');
 var logsRef = ref.child('messages');
 var messagesRef = ref.child('logs');
 var messageRef = messagesRef.push(message);
@@ -27,9 +26,7 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var lockStatus = lock.on('value', function(snap) {
-  console.log('value', snap.val());
-});
+var lockStatus = String admin.database().ref().child('lockStatus');
 
 const http = require('http');
 
