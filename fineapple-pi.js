@@ -26,6 +26,8 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
+var lockStatus = admin.database().ref().child('lockStatus');
+
 const http = require('http');
 
 const hostname = '10.15.41.75';
@@ -34,7 +36,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+  res.end(`Door is ${lockStatus}`);
 });
 
 
