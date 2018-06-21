@@ -34,9 +34,3 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-var ref = admin.app().database().ref();
-ref.once(`test`)
- .then(function (snap) {
- console.log(`snap.val()`, snap.val());
- });
