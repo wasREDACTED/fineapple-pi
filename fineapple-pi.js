@@ -6,7 +6,7 @@ admin.initializeApp({
   databaseURL: 'https://i-entry.firebaseio.com'
 });
 var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
-var ref = firebase.database().ref().child('nodeclient');
+var ref = admin.database().ref().child('nodeclient');
 var logsRef = ref.child('messages');
 var messagesRef = ref.child('logs');
 var messageRef = messagesRef.push(message);
@@ -34,7 +34,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+  res.end('Hello World');
 });
 
 
