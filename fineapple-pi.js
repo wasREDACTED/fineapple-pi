@@ -18,12 +18,12 @@ const server = http.createServer((req, res) => {
   res.end('Hello World\n');
 });
 
+server.listen(port, hostname, () => {
+  console.log('Server running at http://${hostname}:${port}/');
+});
+
 var ref = admin.app().database().ref();
 ref.once('value')
  .then(function (snap) {
  console.log('snap.val()', snap.val());
  });
-
-server.listen(port, hostname, () => {
-  console.log('Server running at http://${hostname}:${port}/');
-});
