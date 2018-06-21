@@ -19,11 +19,11 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, hostname, () => {
-  console.log('Server running at http://${hostname}:${port}/');
+  console.log(`Server running at http://${hostname}:${port}/`);
 });
 
 var ref = admin.app().database().ref();
-ref.once('value')
+ref.once(`value`)
  .then(function (snap) {
- console.log('snap.val()', snap.val());
+ console.log(`snap.val()`, snap.val());
  });
