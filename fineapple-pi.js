@@ -27,7 +27,9 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var lockStatus = lock.on('value');
+var lockStatus = lock.on('value', function(snap) {
+  console.log('value', snap.val());
+});
 
 const http = require('http');
 
