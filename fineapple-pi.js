@@ -23,7 +23,7 @@ server.listen(port, hostname, () => {
 });
 
 var ref = admin.app().database().ref();
-ref.once(`value`)
+ref.once(`test`)
  .then(function (snap) {
  console.log(`snap.val()`, snap.val());
  });
