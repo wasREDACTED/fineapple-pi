@@ -28,6 +28,18 @@ ref.child('logs').on('value', function(snap) {
 });
 
 var locked = lockRef.child('Locked');
+locked.addValueEventListener(new ValueEventListener() {
+  @Override
+  public void onDataChange(DataSnapshot dataSnapshot) {
+      String email = dataSnapshot.getValue(String.class);
+  }
+  
+  @Override
+  public void onCancelled(DatabaseError databaseError) {
+  
+  }
+  });
+
 
 const http = require('http');
 
@@ -37,7 +49,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end(`Door is ${locked}`);
+  res.end(`Door is ${lockStore}`);
 });
 
 
