@@ -11,7 +11,7 @@ var lockRef = admin.database().ref().child('lockStatus');
 var logsRef = ref.child('messages');
 var messagesRef = ref.child('logs');
 var messageRef = messagesRef.push(message);
-
+var lockValue = ""
 logsRef.child(messageRef.key).set(message);
 
 logsRef.orderByKey().limitToLast(1).on('child_added', function(snap) {
@@ -27,19 +27,7 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var locked = lockRef.child('Locked');
-locked.addValueEventListener(new ValueEventListener()) {
-  @Override
-  public void onDataChange(DataSnapshot dataSnapshot) {
-      String email = dataSnapshot.getValue(String.class);
-  }
-  
-  @Override
-  public void onCancelled(DatabaseError databaseError) {
-  
-  }
-  };
-
+lockRef.on('value', snap => lockValue = snap.val());
 
 const http = require('http');
 
@@ -49,7 +37,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end(`Door is ${lockStore}`);
+  res.end(`Door is ${lockValue}`);
 });
 
 
