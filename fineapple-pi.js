@@ -27,7 +27,7 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-lockRef.on('value', snap => lockValue = snap.val());
+lockRef.on('value', snap => lockValue = JSON.stringify(snap.val()));
 
 const http = require('http');
 
