@@ -28,7 +28,7 @@ ref.child('logs').on('value', function(snap) {
 });
 
 var locked = lockRef.child('Locked');
-locked.addValueEventListener(new ValueEventListener() {
+locked.addValueEventListener(new ValueEventListener()) {
   @Override
   public void onDataChange(DataSnapshot dataSnapshot) {
       String email = dataSnapshot.getValue(String.class);
@@ -38,7 +38,7 @@ locked.addValueEventListener(new ValueEventListener() {
   public void onCancelled(DatabaseError databaseError) {
   
   }
-  });
+  };
 
 
 const http = require('http');
