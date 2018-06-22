@@ -27,15 +27,7 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var locked = lockRef;
-userDataRef.once('value')
-  .then(function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      var key = childSnapshot.key;
-      var childData = childSnapshot.val();
-      var name_val = childSnapshot.val().lockStatus;
-    })
-  })
+var locked = lockRef.child('Locked');
 
 const http = require('http');
 
