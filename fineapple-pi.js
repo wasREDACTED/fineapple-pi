@@ -27,7 +27,15 @@ ref.child('logs').on('value', function(snap) {
   console.log('value', snap.val());
 });
 
-var lockStatus = String(lockRef)
+var locked = lockRef;
+userDataRef.once('value')
+  .then(function(snapshot) {
+    snapshot.forEach(function(childSnapshot) {
+      var key = childSnapshot.key;
+      var childData = childSnapshot.val();
+      var name_val = childSnapshot.val().lockStatus;
+    })
+  })
 
 const http = require('http');
 
@@ -37,7 +45,7 @@ const port = 3000;
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end(`Door is ${lockStatus}`);
+  res.end(`Door is ${locked}`);
 });
 
 
