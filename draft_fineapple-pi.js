@@ -1,37 +1,17 @@
 var admin = require('firebase-admin');
 var serviceAccount = require('./cred/i-entry-firebase-adminsdk-bpur2-5feda99169.json');
+var Gpio = require('onoff').Gpio;
 
+//firebase initialization
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://i-entry.firebaseio.com'
 });
-var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
-var ref = admin.database().ref().child('nodeclient');
-var lockRef = admin.database().ref().child('lockStatus');
-var logsRef = ref.child('messages');
-var messagesRef = ref.child('logs');
-var messageRef = messagesRef.push(message);
-var lockValue = ""
-logsRef.child(messageRef.key).set(message);
 
-logsRef.orderByKey().limitToLast(1).on('child_added', function(snap) {
-  console.log('added', snap.val());
-});
-logsRef.on('child_removed', function(snap) {
-  console.log('removed', snap.val());
-});
-ref.child('logs').on('child_changed', function(snap) {
-  console.log('changed', snap.val());
-});
-ref.child('logs').on('value', function(snap) {
-  console.log('value', snap.val());
-});
 
-lockRef.on('value', snap => lockValue = JSON.stringify(snap.val()));
-
+//HTTP Server settings
 const http = require('http');
-
-const hostname = '192.168.20.59';
+const hostname = 'localhost';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
@@ -40,12 +20,18 @@ const server = http.createServer((req, res) => {
   res.end(`Door is ${lockValue}`);
 });
 
-var Gpio = require('onoff').Gpio;
+//Outputs HTTP Server config to console
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+
+
+//RaspPi GPIO control section
 var LED = new Gpio(4, 'out');
-var blinkInterval = setInterval(blinkLED, 450);
+var blinkInterval = setInterval(blinkLED, 250);
 
 function blinkLED() {
-	if ((LED.readSync() === 0) || (lockValue === 'unlocked')) {
+	if (LED.readSync() === 0) {
 		LED.writeSync(1);
 	} else {
 		LED.writeSync(0);
@@ -58,8 +44,12 @@ function endBlink() {
 	LED.unexport();
 }
 
-setTimeout(endBlink, 5000);
+setTimeout(endBlink, 25000);
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+//var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
+var ref = admin.database().ref().child('nodeclient');
+var lockRef = admin.database().ref().child('lockStatus');
+var logsRef = ref.child('messages');
+var messagesRef = ref.child('logs');
+var messageRef = messagesRef.push(message);
+var lockValue = ""
