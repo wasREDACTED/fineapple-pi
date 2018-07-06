@@ -8,6 +8,14 @@ admin.initializeApp({
   databaseURL: 'https://i-entry.firebaseio.com'
 });
 
+//var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
+var ref = admin.database().ref().child('nodeclient');
+var lockRef = admin.database().ref().child('lockStatus');
+var logsRef = ref.child('messages');
+var messagesRef = ref.child('logs');
+//var messageRef = messagesRef.push(message);
+var lockValue = ""
+
 
 //HTTP Server settings
 const http = require('http');
@@ -26,9 +34,20 @@ server.listen(port, hostname, () => {
 });
 
 
-//RaspPi GPIO control section
+//--------RaspPi GPIO control section--------
+// Adds GPIO library, particularly onoff toggle
+var Gpio = require('onoff').Gpio;
+
+// associates LED to GPIO pin 4 "as out"
 var LED = new Gpio(4, 'out');
-var blinkInterval = setInterval(blinkLED, 250);
+
+// store blinkinterval as 
+var blinkInterval = setInterval(blinkLED, 100);
+
+return admin.database().ref().child('lockStatus').child('blinkTime').on('value', function(snap) {
+  var blinkTotaltime = snap.val();
+  console.log(`blinkTotaltime = ${blinkTotaltime}`)
+});
 
 function blinkLED() {
 	if (LED.readSync() === 0) {
@@ -44,12 +63,7 @@ function endBlink() {
 	LED.unexport();
 }
 
-setTimeout(endBlink, 25000);
+setTimeout(endBlink, 100);
 
-//var message = {text: 'testing pi-firebase', timestamp: new Date().toString()};
-var ref = admin.database().ref().child('nodeclient');
-var lockRef = admin.database().ref().child('lockStatus');
-var logsRef = ref.child('messages');
-var messagesRef = ref.child('logs');
-var messageRef = messagesRef.push(message);
-var lockValue = ""
+LED.writeSync(0);
+

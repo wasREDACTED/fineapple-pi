@@ -31,7 +31,7 @@ lockRef.on('value', snap => lockValue = JSON.stringify(snap.val()));
 
 const http = require('http');
 
-const hostname = '192.168.20.59';
+const hostname = 'localhost';
 const port = 3000;
 
 const server = http.createServer((req, res) => {
@@ -45,7 +45,7 @@ var LED = new Gpio(4, 'out');
 var blinkInterval = setInterval(blinkLED, 450);
 
 function blinkLED() {
-	if ((LED.readSync() === 0) || (lockValue === 'unlocked')) {
+	if (LED.readSync() === 0) {
 		LED.writeSync(1);
 	} else {
 		LED.writeSync(0);
