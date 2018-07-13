@@ -35,7 +35,7 @@ server.listen(port, hostname, () => {
 lockRef.child('Locked').on('value', function(snap) {
   console.log('value', snap.val());
   var lockState = snap.val();
-  if (lockState === 0) {
+  if (lockState == 0) {
     LED.writeSync(1);
     console.log(lockState, 'Unlocked!');
     setTimeout(function () {
